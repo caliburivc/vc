@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- 主配置文件 -->
+<configuration>
+
+	<settings>
+	<!-- 针对mybatis，使用log4j打印日志 -->
+		<setting name="logImpl" value="LOG4J"/>
+		<!-- 映射数据时，字段的下划线转驼峰命令方式 -->
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="com.qfedu.pojo.SysUser" alias="sysUser"></typeAlias>
+		<typeAlias type="com.qfedu.pojo.BasDict" alias="basDict"></typeAlias>
+		<typeAlias type="com.qfedu.pojo.CstCustomer" alias="cstCustomer"></typeAlias>
+	</typeAliases>
+
+	<plugins>
+    <!-- com.github.pagehelper为PageHelper类所在包名 -->
+    <plugin interceptor="com.github.pagehelper.PageInterceptor">
+        <!-- 使用下面的方式配置参数，后面会有所有的参数介绍 -->
+        <property name="helperDialect" value="mysql"/>
+	</plugin>
+	
+</plugins>
+
+</configuration>

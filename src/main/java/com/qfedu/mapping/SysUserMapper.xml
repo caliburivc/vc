@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.dao.SysUserMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.pojo.SysUser">
+    <id column="usr_id" jdbcType="INTEGER" property="usrId" />
+    <result column="usr_name" jdbcType="VARCHAR" property="usrName" />
+    <result column="usr_password" jdbcType="VARCHAR" property="usrPassword" />
+    <result column="usr_role_id" jdbcType="INTEGER" property="usrRoleId" />
+    <result column="usr_flag" jdbcType="VARCHAR" property="usrFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    usr_id, usr_name, usr_password, usr_role_id, usr_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_user
+    where usr_id = #{usrId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_user
+    where usr_id = #{usrId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.pojo.SysUser">
+    insert into sys_user (usr_id, usr_name, usr_password, 
+      usr_role_id, usr_flag)
+    values (#{usrId,jdbcType=INTEGER}, #{usrName,jdbcType=VARCHAR}, #{usrPassword,jdbcType=VARCHAR}, 
+      #{usrRoleId,jdbcType=INTEGER}, #{usrFlag,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.pojo.SysUser">
+    insert into sys_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="usrId != null">
+        usr_id,
+      </if>
+      <if test="usrName != null">
+        usr_name,
+      </if>
+      <if test="usrPassword != null">
+        usr_password,
+      </if>
+      <if test="usrRoleId != null">
+        usr_role_id,
+      </if>
+      <if test="usrFlag != null">
+        usr_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="usrId != null">
+        #{usrId,jdbcType=INTEGER},
+      </if>
+      <if test="usrName != null">
+        #{usrName,jdbcType=VARCHAR},
+      </if>
+      <if test="usrPassword != null">
+        #{usrPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usrRoleId != null">
+        #{usrRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="usrFlag != null">
+        #{usrFlag,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.pojo.SysUser">
+    update sys_user
+    <set>
+      <if test="usrName != null">
+        usr_name = #{usrName,jdbcType=VARCHAR},
+      </if>
+      <if test="usrPassword != null">
+        usr_password = #{usrPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="usrRoleId != null">
+        usr_role_id = #{usrRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="usrFlag != null">
+        usr_flag = #{usrFlag,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where usr_id = #{usrId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.pojo.SysUser">
+    update sys_user
+    set usr_name = #{usrName,jdbcType=VARCHAR},
+      usr_password = #{usrPassword,jdbcType=VARCHAR},
+      usr_role_id = #{usrRoleId,jdbcType=INTEGER},
+      usr_flag = #{usrFlag,jdbcType=VARCHAR}
+    where usr_id = #{usrId,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="selectByName" parameterType="string" resultType="sysUser">
+  	select <include refid="Base_Column_List" /> 
+  	from sys_user where usr_name=#{name}
+  </select>
+
+  <select id="searchAll" parameterType="string" resultType="sysUser">
+  select <include refid="Base_Column_List" />
+  FROM sys_user WHERE
+    usr_name LIKE "%"#{usrName}"%"
+</select>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" /> 
+  	from sys_user 
+  </select>
+  
+  <insert id="insertMultiInfo" parameterType="list">
+  	insert into sys_user values
+  	<foreach collection="list" item="item" separator=",">
+  		(null, #{item.usrName}, #{item.usrPassword}, #{item.usrRoleId}, 1 )
+  	</foreach>
+  </insert>
+  
+  
+  
+</mapper>

@@ -1,0 +1,212 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+  <html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>营销管理</title>
+    <link href="../css/stylesheet.css" rel="stylesheet" type="text/css" />
+    <link href="../css/style.css" rel="stylesheet" type="text/css" />
+    <!-- 引入pagination的样式和js文件 -->
+    <link href="../pagination/pagination.css" rel="stylesheet" type="text/css" />
+
+    <script type="text/javascript" src="../js/jquery.js"></script>
+    <script type="text/javascript" src="../js/simpla.jquery.configuration.js"></script>
+    <script type="text/javascript" src="../js/javascript.js"></script>
+    <script type="text/javascript" src="../datepicker/WdatePicker.js"> </script>
+
+    <script type="text/javascript" src="../pagination/jquery.pagination.js"> </script>
+
+<style type="text/css">
+	.paginationInfo{
+		display: flex;
+		align-items:center;
+	}
+</style>
+
+</head>
+
+<body>
+<!--<div class="notification attention" style="margin-bottom:5px;">
+				<a href="#" class="close"><img src="../resources/images/icons/cross_grey_small.png" title="Close this notification" alt="close" /></a>
+				<div>
+					What's the FUCK!?
+				</div>
+			</div>-->
+<div style="padding:5px;">
+  <div class="txt" style="padding-top:3px;" >当前位置：系统设置&nbsp;&gt;&nbsp;用户管理&nbsp;&gt;&nbsp;
+    <hr class="hr1" />
+  </div>
+  <div class="operation_button">
+  	<a href="#" title="新建" onclick="to('adduser.html')">新建</a>
+  	<a href="#" title="建" onclick="to('exportUser.html')">导入</a>
+    <a href="#" title="新" onclick="searchAll()">查询</a>
+  </div>
+  <div class="search_input">
+    <ul class="txt">
+      <li>用户名称：
+        <input type="text" size="30" id="n"/>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_list" >
+      <thead>
+        <tr>
+          <th width="15%">编号</th>
+          <th width="15%">用户名</th>
+          <th width="15%">所属角色</th>
+          <th width="15%">是否可用</th>
+		  <th width="10%">操作</th>
+        </tr>
+      </thead>
+      <tbody id="tid">
+        
+      </tbody>
+    </table>
+  </div>
+ <div class="paginationInfo"> 
+  	<!-- 共59条记录&nbsp;每页10条&nbsp;第1页/共5页 
+    <a href="#" title="首页">&laquo;首页</a><a href="#" title="上一页">&laquo; 上一页</a> <a href="#" class="number current" title="1">1</a> <a href="#" class="number" title="2">2</a> <a href="#" class="number" title="3">3</a> <a href="#" class="number" title="4">4</a> <a href="#" title="下一页">下一页&raquo;</a><a href="#" title="末页">末页&raquo;</a> 转到&nbsp;
+    <input value="1" size="2" />
+    &nbsp;页<a href="#">GO</a>
+    </li> -->
+    <div>当前页</div><div class="currentPage">1</div>
+    <div class="M-box3"></div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		
+		loadData(1);
+	})
+	
+	function loadData(page){
+		$.ajax({
+			type:"get",
+			url:"/crmsys/user/list.do?page=" + page,
+			dataType:"json",
+			success:function(data){
+				if(data.code == 1){
+					var total = data.info.total;// 获取总行数
+					var pageCount = Math.ceil(total / 5);// 计算总页数
+					var infos = data.info.rows;
+					$("#tid").empty();
+					$(infos).each(function(){
+						var html = '<tr>';
+				          html += '<td>' + this.usrId + '</td>';
+				          html += '<td>' + this.usrName + '</td>';
+				          html += '<td>' + this.usrRoleId + '</td>';
+				          html += '<td>' + this.usrFlag + '</td>';
+				          html += '<td>';
+				          html += '	<input type="button" onclick="deleteUser(' + this.usrId + ')" value="删除"/>';
+				          html += '</td>';
+				          html += '</tr>';
+				          
+				          $("#tid").append($(html));
+					})
+				}
+				$('.M-box3').pagination({
+				    pageCount:pageCount,
+				    current:$(".currentPage").html(),
+				    jump:true,
+				    coping:true,
+				    keepShowPN: true, //是否一直显示上一页下一页
+				    homePage:'首页',
+				    endPage:'末页',
+				    prevContent:'<',
+				    nextContent:'>',
+				    jumpBtn:"go",
+				    callback:function(api){
+				    	$(".currentPage").html(api.getCurrent());
+				    	// getCurrent() 获取当前页
+				        loadData(api.getCurrent());
+				    }
+				});
+			}
+		})
+	}
+
+	
+</script>
+
+<script type="text/javascript">
+	function deleteUser(id){
+		var ret = window.confirm("是否要删除数据？");
+		if(ret){
+			$.ajax({
+				type:"get",
+				url:"/crmsys/user/delete.do?id=" + id,
+				dataType:"json",
+				success:function(data){
+					if(data.code == 1){
+						loadData(1);
+					}else{
+						alert(data.info);
+					}
+				}
+			})
+		}
+	}
+</script>
+
+<script type="text/javascript">
+  function searchAll() {
+    $(function(){
+
+      loadData1(1);
+    })
+
+    function loadData1(page){
+      $.ajax({
+        type:"post",
+        url:"/crmsys/user/userselect.do",
+        data:{ page: page,
+          usrName: $("#n").val()},
+        dataType:"json",
+        success:function(data){
+          if(data.code == 1){
+            var total = data.info.total;// 获取总行数
+            var pageCount = Math.ceil(total / 3);// 计算总页数
+            var infos = data.info.rows;
+            $("#tid").empty();
+            $(infos).each(function(){
+              var html = '<tr>';
+              html += '<td>' + this.usrId + '</td>';
+              html += '<td>' + this.usrName + '</td>';
+              html += '<td>' + this.ursRoleId + '</td>';
+              html += '<td>' + this.usrFlag + '</td>';
+              html += '<td>';
+              html += '	<input type="button" onclick="deleteUser(' + this.usrId + ')" value="删除"/>';
+              html += '</td>';
+              html += '</tr>';
+
+              $("#tid").append($(html));
+            })
+          }
+          $('.M-box3').pagination({
+            pageCount:pageCount,
+            current:$(".currentPage").html(),
+            jump:true,
+            coping:true,
+            keepShowPN: true, //是否一直显示上一页下一页
+            homePage:'首页',
+            endPage:'末页',
+            prevContent:'<',
+            nextContent:'>',
+            jumpBtn:"go",
+            callback:function(api){
+              $(".currentPage").html(api.getCurrent());
+              // getCurrent() 获取当前页
+              loadData1(api.getCurrent());
+            }
+          });
+        }
+      })
+    }
+  }
+</script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.dao.CstCustomerMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.pojo.CstCustomer">
+    <id column="cust_id" jdbcType="INTEGER" property="custId" />
+    <result column="cust_no" jdbcType="VARCHAR" property="custNo" />
+    <result column="cust_name" jdbcType="VARCHAR" property="custName" />
+    <result column="cust_region" jdbcType="VARCHAR" property="custRegion" />
+    <result column="cust_manager_id" jdbcType="INTEGER" property="custManagerId" />
+    <result column="cust_level" jdbcType="INTEGER" property="custLevel" />
+    <result column="cust_satisfy" jdbcType="INTEGER" property="custSatisfy" />
+    <result column="cust_credit" jdbcType="INTEGER" property="custCredit" />
+    <result column="cust_addr" jdbcType="VARCHAR" property="custAddr" />
+    <result column="cust_zip" jdbcType="VARCHAR" property="custZip" />
+    <result column="cust_tel" jdbcType="VARCHAR" property="custTel" />
+    <result column="cust_fax" jdbcType="VARCHAR" property="custFax" />
+    <result column="cust_website" jdbcType="VARCHAR" property="custWebsite" />
+    <result column="cust_licence_no" jdbcType="VARCHAR" property="custLicenceNo" />
+    <result column="cust_chieftain" jdbcType="VARCHAR" property="custChieftain" />
+    <result column="cust_bankroll" jdbcType="BIGINT" property="custBankroll" />
+    <result column="cust_turnover" jdbcType="BIGINT" property="custTurnover" />
+    <result column="cust_bank" jdbcType="VARCHAR" property="custBank" />
+    <result column="cust_bank_account" jdbcType="VARCHAR" property="custBankAccount" />
+    <result column="cust_local_tax_no" jdbcType="VARCHAR" property="custLocalTaxNo" />
+    <result column="cust_national_tax_no" jdbcType="VARCHAR" property="custNationalTaxNo" />
+    <result column="cust_status" jdbcType="INTEGER" property="custStatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    cust_id, cust_no, cust_name, cust_region, cust_manager_id, cust_level, cust_satisfy, 
+    cust_credit, cust_addr, cust_zip, cust_tel, cust_fax, cust_website, cust_licence_no, 
+    cust_chieftain, cust_bankroll, cust_turnover, cust_bank, cust_bank_account, cust_local_tax_no, 
+    cust_national_tax_no, cust_status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from cst_customer
+    where cust_id = #{custId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from cst_customer
+    where cust_id = #{custId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.pojo.CstCustomer">
+    insert into cst_customer (cust_id, cust_no, cust_name, 
+      cust_region, cust_manager_id, cust_level, 
+      cust_satisfy, cust_credit, cust_addr, 
+      cust_zip, cust_tel, cust_fax, 
+      cust_website, cust_licence_no, cust_chieftain, 
+      cust_bankroll, cust_turnover, cust_bank, 
+      cust_bank_account, cust_local_tax_no, cust_national_tax_no, 
+      cust_status)
+    values (#{custId,jdbcType=INTEGER}, #{custNo,jdbcType=VARCHAR}, #{custName,jdbcType=VARCHAR}, 
+      #{custRegion,jdbcType=VARCHAR}, #{custManagerId,jdbcType=INTEGER}, #{custLevel,jdbcType=INTEGER}, 
+      #{custSatisfy,jdbcType=INTEGER}, #{custCredit,jdbcType=INTEGER}, #{custAddr,jdbcType=VARCHAR}, 
+      #{custZip,jdbcType=VARCHAR}, #{custTel,jdbcType=VARCHAR}, #{custFax,jdbcType=VARCHAR}, 
+      #{custWebsite,jdbcType=VARCHAR}, #{custLicenceNo,jdbcType=VARCHAR}, #{custChieftain,jdbcType=VARCHAR}, 
+      #{custBankroll,jdbcType=BIGINT}, #{custTurnover,jdbcType=BIGINT}, #{custBank,jdbcType=VARCHAR}, 
+      #{custBankAccount,jdbcType=VARCHAR}, #{custLocalTaxNo,jdbcType=VARCHAR}, #{custNationalTaxNo,jdbcType=VARCHAR}, 
+      #{custStatus,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.pojo.CstCustomer">
+    insert into cst_customer
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="custId != null">
+        cust_id,
+      </if>
+      <if test="custNo != null">
+        cust_no,
+      </if>
+      <if test="custName != null">
+        cust_name,
+      </if>
+      <if test="custRegion != null">
+        cust_region,
+      </if>
+      <if test="custManagerId != null">
+        cust_manager_id,
+      </if>
+      <if test="custLevel != null">
+        cust_level,
+      </if>
+      <if test="custSatisfy != null">
+        cust_satisfy,
+      </if>
+      <if test="custCredit != null">
+        cust_credit,
+      </if>
+      <if test="custAddr != null">
+        cust_addr,
+      </if>
+      <if test="custZip != null">
+        cust_zip,
+      </if>
+      <if test="custTel != null">
+        cust_tel,
+      </if>
+      <if test="custFax != null">
+        cust_fax,
+      </if>
+      <if test="custWebsite != null">
+        cust_website,
+      </if>
+      <if test="custLicenceNo != null">
+        cust_licence_no,
+      </if>
+      <if test="custChieftain != null">
+        cust_chieftain,
+      </if>
+      <if test="custBankroll != null">
+        cust_bankroll,
+      </if>
+      <if test="custTurnover != null">
+        cust_turnover,
+      </if>
+      <if test="custBank != null">
+        cust_bank,
+      </if>
+      <if test="custBankAccount != null">
+        cust_bank_account,
+      </if>
+      <if test="custLocalTaxNo != null">
+        cust_local_tax_no,
+      </if>
+      <if test="custNationalTaxNo != null">
+        cust_national_tax_no,
+      </if>
+      <if test="custStatus != null">
+        cust_status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="custId != null">
+        #{custId,jdbcType=INTEGER},
+      </if>
+      <if test="custNo != null">
+        #{custNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null">
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custRegion != null">
+        #{custRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="custManagerId != null">
+        #{custManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="custLevel != null">
+        #{custLevel,jdbcType=INTEGER},
+      </if>
+      <if test="custSatisfy != null">
+        #{custSatisfy,jdbcType=INTEGER},
+      </if>
+      <if test="custCredit != null">
+        #{custCredit,jdbcType=INTEGER},
+      </if>
+      <if test="custAddr != null">
+        #{custAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="custZip != null">
+        #{custZip,jdbcType=VARCHAR},
+      </if>
+      <if test="custTel != null">
+        #{custTel,jdbcType=VARCHAR},
+      </if>
+      <if test="custFax != null">
+        #{custFax,jdbcType=VARCHAR},
+      </if>
+      <if test="custWebsite != null">
+        #{custWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="custLicenceNo != null">
+        #{custLicenceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custChieftain != null">
+        #{custChieftain,jdbcType=VARCHAR},
+      </if>
+      <if test="custBankroll != null">
+        #{custBankroll,jdbcType=BIGINT},
+      </if>
+      <if test="custTurnover != null">
+        #{custTurnover,jdbcType=BIGINT},
+      </if>
+      <if test="custBank != null">
+        #{custBank,jdbcType=VARCHAR},
+      </if>
+      <if test="custBankAccount != null">
+        #{custBankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="custLocalTaxNo != null">
+        #{custLocalTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custNationalTaxNo != null">
+        #{custNationalTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custStatus != null">
+        #{custStatus,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.pojo.CstCustomer">
+    update cst_customer
+    <set>
+      <if test="custNo != null">
+        cust_no = #{custNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custName != null">
+        cust_name = #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="custRegion != null">
+        cust_region = #{custRegion,jdbcType=VARCHAR},
+      </if>
+      <if test="custManagerId != null">
+        cust_manager_id = #{custManagerId,jdbcType=INTEGER},
+      </if>
+      <if test="custLevel != null">
+        cust_level = #{custLevel,jdbcType=INTEGER},
+      </if>
+      <if test="custSatisfy != null">
+        cust_satisfy = #{custSatisfy,jdbcType=INTEGER},
+      </if>
+      <if test="custCredit != null">
+        cust_credit = #{custCredit,jdbcType=INTEGER},
+      </if>
+      <if test="custAddr != null">
+        cust_addr = #{custAddr,jdbcType=VARCHAR},
+      </if>
+      <if test="custZip != null">
+        cust_zip = #{custZip,jdbcType=VARCHAR},
+      </if>
+      <if test="custTel != null">
+        cust_tel = #{custTel,jdbcType=VARCHAR},
+      </if>
+      <if test="custFax != null">
+        cust_fax = #{custFax,jdbcType=VARCHAR},
+      </if>
+      <if test="custWebsite != null">
+        cust_website = #{custWebsite,jdbcType=VARCHAR},
+      </if>
+      <if test="custLicenceNo != null">
+        cust_licence_no = #{custLicenceNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custChieftain != null">
+        cust_chieftain = #{custChieftain,jdbcType=VARCHAR},
+      </if>
+      <if test="custBankroll != null">
+        cust_bankroll = #{custBankroll,jdbcType=BIGINT},
+      </if>
+      <if test="custTurnover != null">
+        cust_turnover = #{custTurnover,jdbcType=BIGINT},
+      </if>
+      <if test="custBank != null">
+        cust_bank = #{custBank,jdbcType=VARCHAR},
+      </if>
+      <if test="custBankAccount != null">
+        cust_bank_account = #{custBankAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="custLocalTaxNo != null">
+        cust_local_tax_no = #{custLocalTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custNationalTaxNo != null">
+        cust_national_tax_no = #{custNationalTaxNo,jdbcType=VARCHAR},
+      </if>
+      <if test="custStatus != null">
+        cust_status = #{custStatus,jdbcType=INTEGER},
+      </if>
+    </set>
+    where cust_id = #{custId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.pojo.CstCustomer">
+    update cst_customer
+    set cust_no = #{custNo,jdbcType=VARCHAR},
+      cust_name = #{custName,jdbcType=VARCHAR},
+      cust_region = #{custRegion,jdbcType=VARCHAR},
+      cust_manager_id = #{custManagerId,jdbcType=INTEGER},
+      cust_level = #{custLevel,jdbcType=INTEGER},
+      cust_satisfy = #{custSatisfy,jdbcType=INTEGER},
+      cust_credit = #{custCredit,jdbcType=INTEGER},
+      cust_addr = #{custAddr,jdbcType=VARCHAR},
+      cust_zip = #{custZip,jdbcType=VARCHAR},
+      cust_tel = #{custTel,jdbcType=VARCHAR},
+      cust_fax = #{custFax,jdbcType=VARCHAR},
+      cust_website = #{custWebsite,jdbcType=VARCHAR},
+      cust_licence_no = #{custLicenceNo,jdbcType=VARCHAR},
+      cust_chieftain = #{custChieftain,jdbcType=VARCHAR},
+      cust_bankroll = #{custBankroll,jdbcType=BIGINT},
+      cust_turnover = #{custTurnover,jdbcType=BIGINT},
+      cust_bank = #{custBank,jdbcType=VARCHAR},
+      cust_bank_account = #{custBankAccount,jdbcType=VARCHAR},
+      cust_local_tax_no = #{custLocalTaxNo,jdbcType=VARCHAR},
+      cust_national_tax_no = #{custNationalTaxNo,jdbcType=VARCHAR},
+      cust_status = #{custStatus,jdbcType=INTEGER}
+    where cust_id = #{custId,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAll" resultMap="BaseResultMap">
+  	select <include refid="Base_Column_List" />
+  	from cst_customer 
+  </select>
+  
+  
+  
+  
+  
+</mapper>

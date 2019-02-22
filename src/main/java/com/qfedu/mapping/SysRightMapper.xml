@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.dao.SysRightMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.pojo.SysRight">
+    <id column="right_code" jdbcType="INTEGER" property="rightCode" />
+    <result column="right_parent_code" jdbcType="INTEGER" property="rightParentCode" />
+    <result column="right_name" jdbcType="VARCHAR" property="rightName" />
+    <result column="right_url" jdbcType="VARCHAR" property="rightUrl" />
+    <result column="right_node_type" jdbcType="INTEGER" property="rightNodeType" />
+    <result column="right_flag" jdbcType="INTEGER" property="rightFlag" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    right_code, right_parent_code, right_name, right_url, right_node_type, right_flag
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_right
+    where right_code = #{rightCode,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_right
+    where right_code = #{rightCode,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.pojo.SysRight">
+    insert into sys_right (right_code, right_parent_code, right_name, 
+      right_url, right_node_type, right_flag
+      )
+    values (#{rightCode,jdbcType=INTEGER}, #{rightParentCode,jdbcType=INTEGER}, #{rightName,jdbcType=VARCHAR}, 
+      #{rightUrl,jdbcType=VARCHAR}, #{rightNodeType,jdbcType=INTEGER}, #{rightFlag,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.pojo.SysRight">
+    insert into sys_right
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rightCode != null">
+        right_code,
+      </if>
+      <if test="rightParentCode != null">
+        right_parent_code,
+      </if>
+      <if test="rightName != null">
+        right_name,
+      </if>
+      <if test="rightUrl != null">
+        right_url,
+      </if>
+      <if test="rightNodeType != null">
+        right_node_type,
+      </if>
+      <if test="rightFlag != null">
+        right_flag,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rightCode != null">
+        #{rightCode,jdbcType=INTEGER},
+      </if>
+      <if test="rightParentCode != null">
+        #{rightParentCode,jdbcType=INTEGER},
+      </if>
+      <if test="rightName != null">
+        #{rightName,jdbcType=VARCHAR},
+      </if>
+      <if test="rightUrl != null">
+        #{rightUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rightNodeType != null">
+        #{rightNodeType,jdbcType=INTEGER},
+      </if>
+      <if test="rightFlag != null">
+        #{rightFlag,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.pojo.SysRight">
+    update sys_right
+    <set>
+      <if test="rightParentCode != null">
+        right_parent_code = #{rightParentCode,jdbcType=INTEGER},
+      </if>
+      <if test="rightName != null">
+        right_name = #{rightName,jdbcType=VARCHAR},
+      </if>
+      <if test="rightUrl != null">
+        right_url = #{rightUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="rightNodeType != null">
+        right_node_type = #{rightNodeType,jdbcType=INTEGER},
+      </if>
+      <if test="rightFlag != null">
+        right_flag = #{rightFlag,jdbcType=INTEGER},
+      </if>
+    </set>
+    where right_code = #{rightCode,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.pojo.SysRight">
+    update sys_right
+    set right_parent_code = #{rightParentCode,jdbcType=INTEGER},
+      right_name = #{rightName,jdbcType=VARCHAR},
+      right_url = #{rightUrl,jdbcType=VARCHAR},
+      right_node_type = #{rightNodeType,jdbcType=INTEGER},
+      right_flag = #{rightFlag,jdbcType=INTEGER}
+    where right_code = #{rightCode,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="selectByRoleId" parameterType="int" resultMap="BaseResultMap">
+  	select ri.* from sys_role r
+	inner join sys_role_right rr
+	on r.role_id=rr.rf_role_id
+	inner join sys_right ri
+	on rr.rf_right_code=ri.right_code
+	where ri.right_node_type=0 and ri.right_flag=1 and r.role_id=#{rid}
+  </select>
+  
+  
+  <resultMap type="com.qfedu.vo.VMenuInfo" id="menuMap">
+  	<result column="pcode" property="id"/>
+  	<result column="pname" property="menuName"/>
+  	<result column="purl" property="url"/>
+  	<collection property="cMenuList" javaType="java.util.ArrayList" ofType="com.qfedu.vo.VMenuInfo">
+  		<result column="ccode" property="id"/>
+  		<result column="cname" property="menuName"/>
+  		<result column="curl" property="url"/>
+  	</collection>
+  
+  </resultMap>
+  
+  <select id="selectByRid" parameterType="int" resultMap="menuMap">
+  	select p.right_code pcode, p.right_name pname, p.right_url purl,c.right_code ccode, c.right_name cname, c.right_url curl from sys_right c
+	inner join sys_right p
+	on c.right_parent_code=p.right_code
+	inner join sys_role_right rr
+	on rr.rf_right_code=c.right_code
+	inner join sys_role r
+	on r.role_id=rr.rf_role_id
+	where r.role_id=1
+  </select>
+  
+</mapper>

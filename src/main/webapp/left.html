@@ -1,0 +1,97 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>CRM_Left</title>
+<link rel="stylesheet" href="css/stylesheet.css" type="text/css"  />
+<link rel="stylesheet" href="css/sidebar.css" type="text/css"  />
+<script type="text/javascript" src="js/javascript.js"></script>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/simpla.jquery.configuration.js"></script>
+</head>
+<body>
+<div>
+  <div id="loader"><img src="images/1d_2.gif"/></div>
+  <div class="current_user attention">
+    <div> 欢迎您，<strong>Mr.Shi</strong><br />
+      [系统管理员，<a href="#">退出</a>] </div>
+  </div>
+  <div id="sidebar">
+    <div id="sidebar-wrapper">
+      <ul id="main-nav">
+        <!-- <li> <a href="#" class="nav-top-item current" id="man_nav_1" onclick="list_sub_nav(id)"> 营销管理 </a>
+          <ul>
+            <li><a href="crm_sale/opp/list.html" target="rightFrame" id="a_nav_1" onclick="a_sub_nav(id)">销售机会管理</a></li>
+            <li><a href="crm_sale/dev/list.html" target="rightFrame" id="a_nav_2" onclick="a_sub_nav(id)">客户开发计划</a></li>
+          </ul>
+        </li> -->
+        
+      </ul>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	$(function(){
+		$.ajax({
+			type:"get",
+			url:"menu.do",
+			dataType:"json",
+			success:function(data){
+				if(data.code == 1){
+					var infos = data.info;
+					var i = 1;
+					$(infos).each(function(index){
+						var html = '<li> <a href="#" class="nav-top-item" id="man_nav_' + (index + 1) + '" onclick="list_sub_nav(id)">' + this.menuName + '</a>';
+				          html += '<ul>';
+				          
+				          var cList = this.cMenuList;
+				          
+				          $(cList).each(function(){
+				          	html += '  <li><a href="' + this.url + '" target="rightFrame" id="a_nav_' + i + '" onclick="a_sub_nav(id)">' + this.menuName + '</a></li>';
+				          	i++;
+				          })
+				          
+				          html += '</ul>';
+				          html += '</li>';
+				          
+				          $("#main-nav").append($(html));
+					})
+				}
+				
+				// 原来在simpla.jquery.configuration.js中，移到该位置，可以正常显示效果
+				//Sidebar Accordion Menu:
+				$("#main-nav li ul").hide(); // Hide all sub menus
+				$("#main-nav li a.current").parent().find("ul").slideToggle("slow"); // Slide down the current menu item's sub menu
+				$("#main-nav li a.nav-top-item").click( // When a top menu item is clicked...
+					function () {
+						$(this).parent().siblings().find("ul").slideUp("normal"); // Slide up all sub menus except the one clicked
+						$(this).next().slideToggle("normal"); // Slide down the clicked sub menu
+						return false;
+					}
+				);
+				
+				$("#main-nav li a.no-submenu").click( // When a menu item with no sub menu is clicked...
+					function () {
+						window.location.href=(this.href); // Just open the link instead of a sub menu
+						return false;
+					}
+				); 
+
+		    // Sidebar Accordion Menu Hover Effect:
+				$("#main-nav li .nav-top-item").hover(
+					function () {
+						$(this).stop().animate({ paddingRight: "25px" }, 200);
+					}, 
+					function () {
+						$(this).stop().animate({ paddingRight: "15px" });
+					}
+				);
+			}
+		})
+	})
+
+</script>
+
+</body>
+</html>

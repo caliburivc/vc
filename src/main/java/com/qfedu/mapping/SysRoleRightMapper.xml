@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.dao.SysRoleRightMapper">
+  <resultMap id="BaseResultMap" type="com.qfedu.pojo.SysRoleRight">
+    <id column="rf_id" jdbcType="INTEGER" property="rfId" />
+    <result column="rf_role_id" jdbcType="INTEGER" property="rfRoleId" />
+    <result column="rf_right_code" jdbcType="INTEGER" property="rfRightCode" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    rf_id, rf_role_id, rf_right_code
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_role_right
+    where rf_id = #{rfId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from sys_role_right
+    where rf_id = #{rfId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.qfedu.pojo.SysRoleRight">
+    insert into sys_role_right (rf_id, rf_role_id, rf_right_code
+      )
+    values (#{rfId,jdbcType=INTEGER}, #{rfRoleId,jdbcType=INTEGER}, #{rfRightCode,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.qfedu.pojo.SysRoleRight">
+    insert into sys_role_right
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rfId != null">
+        rf_id,
+      </if>
+      <if test="rfRoleId != null">
+        rf_role_id,
+      </if>
+      <if test="rfRightCode != null">
+        rf_right_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rfId != null">
+        #{rfId,jdbcType=INTEGER},
+      </if>
+      <if test="rfRoleId != null">
+        #{rfRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="rfRightCode != null">
+        #{rfRightCode,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.qfedu.pojo.SysRoleRight">
+    update sys_role_right
+    <set>
+      <if test="rfRoleId != null">
+        rf_role_id = #{rfRoleId,jdbcType=INTEGER},
+      </if>
+      <if test="rfRightCode != null">
+        rf_right_code = #{rfRightCode,jdbcType=INTEGER},
+      </if>
+    </set>
+    where rf_id = #{rfId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.qfedu.pojo.SysRoleRight">
+    update sys_role_right
+    set rf_role_id = #{rfRoleId,jdbcType=INTEGER},
+      rf_right_code = #{rfRightCode,jdbcType=INTEGER}
+    where rf_id = #{rfId,jdbcType=INTEGER}
+  </update>
+</mapper>

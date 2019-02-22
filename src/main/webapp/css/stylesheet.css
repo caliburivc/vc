@@ -1,0 +1,136 @@
+/* CSS Document */
+/************ General Style **************/
+body {
+	font-family: Arial, Helvetica, sans-serif;
+	color: #555;
+	background-color:#F9F9F9;
+	font-size: 12px;
+	background-color: #F9F9F9;
+}
+input {
+	font-size:100%;
+	padding:3px 5px;
+}
+input[type="button"]{
+	cursor:pointer;	
+	font-size:100%;
+}
+#radio{
+	width:100%;	
+	width:20px;
+	height:10px;
+}
+#checkbox{
+	height:15px;	
+	margin-left:-145px;
+}
+input[disabled="disabled"]{
+	cursor:not-allowed;	
+}
+select[disabled="disabled"]{
+	cursor:not-allowed;
+}
+img {
+	border:0px;
+}
+a            { color:#57a000; text-decoration: none; }
+a:hover     { color: #666666; }
+a:active     { color: #777; }
+a:focus     { outline: 1px; }
+.txt {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	line-height:25px;
+	color: #666666;
+}
+.txt_2 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 13px;
+	font-weight: bold;
+	color: #333333;
+}
+.txt_3 {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 12px;
+	color: #000000;
+}
+#loader{position: fixed; left: 0px; top: 0px; height: 100%; width: 100%; z-index: 9999; background: url('../images/wpoint.png') left top repeat;}
+    #loader img{position: absolute; left: 30%; top: 50%;}
+.position a.number,.operation_button a{
+	-moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+	border-radius: 4px;	
+}
+.out_bg{
+	width:99%;
+	padding:7px;
+	background-color:#f2f2f2;
+	margin-top:10px;
+}
+.in_bg{
+	width:100%;
+	padding:5px 0px 5px 10px;
+	background-color:#F8F9FA;	
+}
+.hr0 {
+	height:1px;
+	border:none;
+	border-top:1px dashed #0066CC;
+}
+.hr1 {
+	height:1px;
+	border:none;
+	border-top:1px solid #999;
+}
+.hr2 {
+	height:3px;
+	border:none;
+	border-top:3px double red;
+}
+.hr3 {
+	height:5px;
+	border:none;
+	border-top:5px ridge green;
+}
+.hr4 {
+	height:10px;
+	border:none;
+	border-top:10px groove skyblue;
+}
+
+.color1 {
+	background: #009AD7;
+}
+.color2 {
+	background: #FFAA31;
+}
+.color3 {
+	background: #68AF27;
+}
+.color4 {
+	background: #C22439;
+}
+.color5 {
+	background: #005683;
+}
+.color6 {
+	background: #673499;
+}
+.color7 {
+	background: #D53F26;
+}
+select[multiple]{min-height: 100px;}
+select{display: inline-block; width: auto;}
+
+<!-- 下拉框 -->
+*{margin:0;padding:0;list-style-type:none;}
+/* diy_select */
+.diy_select{height:28px;width:210px;position:relative;font-size:12px;margin:50px;background:#fff;color:#000;float:left;}
+.diy_select_btn,.diy_select_txt{float:left;height:100%;line-height:28px}
+.diy_select,.diy_select_list{border:1px solid #73839F;}
+.diy_select_txt{width:180px;}
+.diy_select_txt,.diy_select_list li{text-indent:10px;overflow:hidden}
+.diy_select_btn{width:28px;background:url(rec.gif) no-repeat center}
+.diy_select_list{position:absolute;top:28px;left:-1px;z-index:88888;border-top:none;width:100%;display:none;_top:29px}
+.diy_select_list li{list-style:none;height:25px;line-height:25px;cursor:default;_background:#039}
+.diy_select_list li.focus{background:#3399FF;color: #039}

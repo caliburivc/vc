@@ -1,0 +1,61 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>服务管理</title>
+<link href="../css/stylesheet.css" rel="stylesheet" type="text/css" />
+<link href="../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../js/javascript.js"></script>
+<script type="text/javascript" src="../js/jquery.js"></script>
+<script type="text/javascript" src="../js/jquery.form.min.js"></script>
+</head>
+
+<body>
+<div style="padding:5px;">
+  <div class="txt" style="padding-top:3px;" >当前位置：用户管理&nbsp;&gt;&nbsp;添加用户
+    <hr class="hr1" />
+  </div>
+  <div class="operation_button">
+    <a href="javascript:exportUser()" title="保存">导入</a>
+  </div>
+  <div class="out_bg">
+    <div class="in_bg">
+    <form action="" enctype="multipart/form-data">
+      <table border="0" cellpadding="0" cellspacing="0" class="table_input txt">
+        
+        
+        <tr>
+          <td>请选择文件</td>
+          <td><input type="file" name="excelFile"/></td>
+          
+        </tr>
+        
+      </table>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+	function exportUser(){
+		$("form").ajaxSubmit({
+			type:"post",
+			url:"/crmsys/importExcel.do",
+			data:$("form").serialize(),
+			dataType:"json",
+			success:function(data){
+				/* if(data.code == 1){
+					window.location.href = "sysuser.html";
+				}else{
+					alert(data.info);
+				} */
+				alert(data.info);
+			}
+		})
+	}
+	
+</script>
+
+
+</body>
+</html>

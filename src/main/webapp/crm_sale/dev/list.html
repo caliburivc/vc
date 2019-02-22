@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>客户开发计划列表</title>
+<link href="../../css/stylesheet.css" rel="stylesheet" type="text/css" />
+<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="../../js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="../../js/simpla.jquery.configuration.js"></script>
+<script type="text/javascript" src="../../js/javascript.js"></script>
+<script type="text/javascript" src="../../datepicker/WdatePicker.js"> </script>
+</head>
+
+<body>
+<div style="padding:5px;">
+  <div class="txt" style="padding-top:3px;" >当前位置：营销管理&nbsp;&gt;&nbsp;客户开发计划&nbsp;&gt;&nbsp;开发计划
+    <hr class="hr1" />
+  </div>
+  <div class="operation_button">
+    <a href="#" title="查询">查询</a>
+  </div>
+  <div class="search_input">
+    <ul class="txt">
+      <li>客户名称：
+        <input type="text" size="30" />
+      </li>
+      <li>联系人：
+        <input type="text" size="30" />
+      </li>
+      <li>创建时间：
+        <input type="text" size="30" onfocus="WdatePicker({lang:'zh-cn',dateFmt:'yyyy-MM-dd'})" />
+      </li>
+    </ul>
+  </div>
+  <div>
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table_list" >
+      <thead>
+        <tr>
+          <th width="5%">编号</th>
+          <th width="15%">客户名称</th>
+          <th width="15%">概要</th>
+          <th width="10%">联系人</th>
+          <th width="15%">联系电话</th>
+          <th width="15%">创建时间</th>
+          <th width="10%">状态</th>
+          <th width="15%">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td><a href="#">睿智数码</a></td>
+          <td>采购笔记本电脑意向</td>
+          <td>刘先生</td>
+          <td>1389675634</td>
+          <td>2007-12-6</td>
+          <td>未开发</td>
+          <td><img title="制定计划" src="../../images/pencil.ico" class="op_button" onclick="to('opp_dispatch.html')" /> <img title="执行计划" src="../../images/right.ico" class="op_button" onclick="to('opp_edit.html')" /></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td><a href="#">睿智数码</a></td>
+          <td>采购笔水电费记本意向</td>
+          <td>刘先生</td>
+          <td>1389675634</td>
+          <td>2007-12-6</td>
+          <td>开发中</td>
+          <td><img title="制定计划" src="../../images/pencil.ico" class="op_button" onclick="to('opp_dispatch.html')" /> <img title="执行计划" src="../../images/right.ico" class="op_button" onclick="to('opp_edit.html')" /><img title="开发成功" src="../../images/tick.ico" class="op_button" onclick="to('opp_edit.html')" /></td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td><a href="#">睿智数码</a></td>
+          <td>采记本意向</td>
+          <td>刘先生</td>
+          <td>1389675634</td>
+          <td>2007-12-6</td>
+          <td>开发中</td>
+          <td><img title="制定计划" src="../../images/pencil.ico" class="op_button" onclick="to('opp_dispatch.html')" /> <img title="执行计划" src="../../images/right.ico" class="op_button" onclick="to('opp_edit.html')" /><img title="开发成功" src="../../images/tick.ico" class="op_button" onclick="to('opp_edit.html')" /></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td><a href="#">睿智数码</a></td>
+          <td>采购笔所得税法记本意向</td>
+          <td>刘先生</td>
+          <td>1389675634</td>
+          <td>2007-12-6</td>
+          <td>已归档</td>
+          <td><img title="已归档" src="../../images/briefcase.ico" class="op_button" /></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="position"> 
+  	共59条记录&nbsp;每页10条&nbsp;第1页/共5页 
+    <a href="#" title="首页">&laquo;首页</a><a href="#" title="上一页">&laquo; 上一页</a> <a href="#" class="number current" title="1">1</a> <a href="#" class="number" title="2">2</a> <a href="#" class="number" title="3">3</a> <a href="#" class="number" title="4">4</a> <a href="#" title="下一页">下一页&raquo;</a><a href="#" title="末页">末页&raquo;</a> 转到&nbsp;
+    <input value="1" size="2" />
+    &nbsp;页<a href="#">GO</a>
+    </li>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>客户开发计划</title>
+	<link href="../../css/stylesheet.css" rel="stylesheet" type="text/css" />
+	<link href="../../css/style.css" rel="stylesheet" type="text/css" />
+	<link href="../../pagination/pagination.css" rel="stylesheet" type="text/css" />
+
+
+	<script type="text/javascript" src="../../js/jquery.js"></script>
+	<!-- <script type="text/javascript" src="../js/jquery-1.3.2.min.js"></script> -->
+	<script type="text/javascript" src="../../js/simpla.jquery.configuration.js"></script>
+	<script type="text/javascript" src="../../js/javascript.js"></script>
+	<script type="text/javascript" src="../../datepicker/WdatePicker.js"> </script>
+
+	<script type="text/javascript" src="../../pagination/jquery.pagination.js"> </script>
+
+<style type="text/css">
+	.paginationInfo {
+		display: flex;
+		align-items: center;
+	}
+</style>
+
+
+
+</head>
+
+<body>
+	<div style="padding: 5px;">
+		<div class="txt" style="padding-top: 3px;">
+			当前位置：客户开发计划&nbsp;&gt;&nbsp;客户信息管理&nbsp;&gt;&nbsp;客户信息
+			<hr class="hr1" />
+		</div>
+		<div class="operation_button">
+			<a href="#" title="查询">查询</a> <a href="add.html" title="新建">新建</a>
+		</div>
+		<div class="search_input">
+			<ul class="txt">
+				<li>客户名称： <input type="text" size="30" />
+				</li>
+				<li>客户经理： <select>
+						<option>全部</option>
+						<option>小明</option>
+						<option>小红</option>
+						<option>小李</option>
+				</select>
+				</li>
+				<li>地区： <select>
+						<option>全部</option>
+						<option>北京</option>
+						<option>华北</option>
+						<option>中南</option>
+						<option>东北</option>
+						<option>西部</option>
+				</select>
+				</li>
+				<li>客户等级： <select>
+						<option>全部</option>
+						<option>战略合作伙伴</option>
+						<option>合作伙伴</option>
+						<option>大客户</option>
+						<option>普通客户</option>
+				</select>
+				</li>
+			</ul>
+		</div>
+		<div>
+			<table width="100%" border="0" cellpadding="0" cellspacing="0"
+				class="table_list">
+				<thead>
+					<tr>
+						<th width="5%">序号</th>
+						<th width="15%">客户编号</th>
+						<th width="20%">客户名称</th>
+						<th width="10%">地区</th>
+						<th width="15%">客户经理</th>
+						<th width="15%">客户等级</th>
+						<th width="15%">操作</th>
+					</tr>
+				</thead>
+				<tbody id="tid">
+					<!-- <tr>
+          <td>1</td>
+          <td>KH071202001</td>
+          <td><a href="#">聪海信息科技有限公司</a></td>
+          <td>北京</td>
+          <td>小明</td>
+          <td>战略合作伙伴</td>
+          <td><img title="编辑" src="../../images/hammer_screwdriver.png" class="op_button" onclick="to('edit.html')" /><img title="联系人" src="../../images/user.ico" class="op_button" onclick="to('linkman.html')" /><img title="交往记录" src="../../images/bubble.ico" class="op_button" onclick="to('contact.html')" /><img title="历史订单" src="../../images/document.ico" class="op_button" onclick="to('order.html')" /></td>
+        </tr> -->
+
+				</tbody>
+			</table>
+		</div>
+		<div class="paginationInfo">
+			<div>当前页</div>
+			<div class="currentPage">1</div>
+			<div class="M-box3"></div>
+		</div>
+	</div>
+
+<script type="text/javascript">
+	$(function(){
+
+		loadData(1);
+	})
+
+	function loadData(page){
+		$.ajax({
+			type:"get",
+			url:"/crmsys/customer/custlist.do?page=" + page,
+			dataType:"json",
+			success:function(data){
+				if(data.code == 1){
+					var total = data.info.total;
+					var pageCount = Math.ceil(total / 5);
+					var infos = data.info.rows;
+					$("#tid").empty();
+					$(infos).each(function(){
+						var html = '<tr>';
+						html += '<td>'+ this.custId +'</td>';
+						html += '<td>'+ this.custNo +'</td>';
+						html += '<td>'+ this.custName +'</a></td>';
+						html += '<td>'+ this.custRegion +'</td>';
+						html += '<td>'+ this.custManagerId +'</td>';
+						html += '<td>'+ this.custLevel +'</td>';
+						html += '<td></td>';
+					    html += '</tr>';
+
+					    $("#tid").append($(html));
+					})
+
+				}
+				$('.M-box3').pagination({
+				    pageCount:pageCount,
+				    current:$(".currentPage").html(),
+				    jump:true,
+				    coping:true,
+				    keepShowPN: true, //是否一直显示上一页下一页
+				    homePage:'首页',
+				    endPage:'末页',
+				    prevContent:'<',
+				    nextContent:'>',
+				    jumpBtn:"go",
+				    callback:function(api){
+				    	$(".currentPage").html(api.getCurrent());
+				    	// getCurrent() 获取当前页
+				        loadData(api.getCurrent());
+				    }
+				});
+			}
+
+		})
+	}
+
+
+</script>
+
+
+<script type="text/javascript">
+	function deleteUser(id){
+		var ret = window.confirm("是否要删除数据？");
+		if(ret){
+			$.ajax({
+				type:"get",
+				url:"/crmsys/customer/delete.do?id=" + id,
+				dataType:"json",
+				success:function(data){
+					if(data.code == 1){
+						loadData(1);
+					}else{
+						alert(data.info);
+					}
+				}
+			})
+		}
+	}
+</script>
+</body>
+</html>
